@@ -1,0 +1,9 @@
+image:
+  registry: docker.io
+  repository: bitnami/postgresql
+  tag: 13
+  pullPolicy: Always
+auth:
+  username: rocker
+  database: mail
+  existingSecret: pg-secrets

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: stock
+  name: liquibase-changelog
+data:
+  changelog.sql: |-
+    --liquibase formatted sql
+    
+    --changeset khmel:1
+    create table if not exists stock_product
+    (
+      id       uuid    not null primary key,
+      name     varchar(255),
+      quantity integer not null
+    );
+        
+    insert into stock_product (id, name, quantity)
+      values ('a1268f32-e976-453c-a72a-09253785475d', 'sword', 3),
+      ('5e0a53e2-dc92-496c-8d33-72d9f0bf9cb2', 'bow', 3),
+      ('8d9dfacb-c7b4-4211-a7f3-fe53c2df8f54', 'ball', 3);
+        
+    --rollback 
+    -- drop table stock_product;

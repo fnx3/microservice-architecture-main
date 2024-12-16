@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: mail
+  name: liquibase-changelog
+data:
+  changelog.sql: |-
+    --liquibase formatted sql
+    
+    --changeset khmel:1
+    create table if not exists stock_product
+    (
+      id             uuid not null primary key,
+      content        varchar(255),
+      order_id       uuid,
+      payment_status varchar(255),
+      user_id        varchar(255)
+    );
+        
+    --rollback 
+    -- drop table stock_product;

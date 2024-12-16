@@ -1,0 +1,11 @@
+serviceMonitor:
+  enabled: true
+  namespace: mail
+config:
+  datasource:
+    host: postgresql
+    user: rocker
+    passwordSecret:
+      name: pg-secrets
+      key:  password
+    database: mail

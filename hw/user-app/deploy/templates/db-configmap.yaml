@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: user-profile
+  name: db-config
+data:
+  db.host: postgresql
+  db.name: otus_user
+  db.url: jdbc:postgresql://postgresql:5432/otus_user
+  spring.profile: prod

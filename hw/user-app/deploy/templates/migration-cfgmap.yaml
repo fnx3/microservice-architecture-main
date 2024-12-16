@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: user-profile
+  name: liquibase-changelog
+data:
+  changelog.sql: |-
+    --liquibase formatted sql
+    
+    --changeset khmel:1
+    create table if not exists orders
+    (
+        id UUID NOT NULL,
+        user_id VARCHAR(255),
+        delivery_location VARCHAR(255),
+        status VARCHAR(255),
+        payment_method VARCHAR(255),
+        price DECIMAL,
+        PRIMARY KEY (id)
+    );
+    
+    create table if not exists order_products
+    (
+        id BIGINT,
+        product_id UUID,
+        order_id UUID,
+        quantity INT,
+        PRIMARY KEY (id),
+        FOREIGN KEY (order_id) REFERENCES orders (id)
+    );
+    
+    create table if not exists user_profile
+    (
+        id BIGINT,
+        avatar_url VARCHAR(255),
+        nickname VARCHAR(255),
+        user_id VARCHAR(255) UNIQUE,
+        wallet_id VARCHAR(255) UNIQUE,
+        PRIMARY KEY (id)
+    );
+    
+    CREATE SEQUENCE hibernate_sequence START WITH 1 INCREMENT BY 1;
+        
+    --rollback 
+    -- drop table user_profile;
+    -- drop table orders;

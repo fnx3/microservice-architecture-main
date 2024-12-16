@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  namespace: auth-service
+  name: metrics-monitor
+  labels:
+    app: metric-monitor
+
+spec:
+  endpoints:
+    - port: actuator
+      scrapeTimeout: 30s
+      path: /actuator/prometheus
+      honorLabels: true
+#      scheme: http
+  selector:
+    matchLabels:
+      app: auth-svc
+

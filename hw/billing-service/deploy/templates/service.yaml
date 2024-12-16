@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: billing
+  name: svc-billing-app
+  labels:
+    app: svc-billing-app
+spec:
+  selector:
+    app: billing-app
+  ports:
+    - port: 7000
+      name: http
+      targetPort: http
+    - port: 8283
+      name: actuator
+      targetPort: actuator

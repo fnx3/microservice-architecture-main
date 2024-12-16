@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingres-billing-app
+  namespace: billing
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "http://auth-svc.auth-service.svc.cluster.local:8000/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "http://$host/signin"
+    nginx.ingress.kubernetes.io/auth-response-headers: "X-User,X-Email,X-UserId,X-Age"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: arch.homework
+      http:
+        paths:
+          - path: /wallet/update
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-billing-app
+                port:
+                  name: http
+          - path: /wallet
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-billing-app
+                port:
+                  name: http

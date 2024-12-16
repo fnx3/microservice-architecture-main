@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: user-profile
+  name: svc-user-profile
+  labels:
+    app: svc-user-profile
+spec:
+  selector:
+    app: user-profile-app
+  ports:
+    - port: 9000
+      name: http
+      targetPort: http
+    - port: 8282
+      name: actuator
+      targetPort: actuator

@@ -1,0 +1,55 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: auth-service
+  name: ingress-auth
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: arch.homework
+      http:
+        paths:
+          - path: /auth/actuator/health
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-svc
+                port:
+                  name: actuator
+
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-svc
+                port:
+                  name: http
+          - path: /login
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-svc
+                port:
+                  name: http
+          - path: /register
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-svc
+                port:
+                  name: http
+          - path: /signin
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-svc
+                port:
+                  name: http
+          - path: /logout
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-svc
+                port:
+                  name: http
+

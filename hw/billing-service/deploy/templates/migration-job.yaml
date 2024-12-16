@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: billing
+  name: liquibase-job-v1
+spec:
+  template:
+    spec:
+      containers:
+        - name: liquibase
+          image: liquibase/liquibase
+          command: ["sh", "-c", "docker-entrypoint.sh --url=${URL} --username=${USERNAME} --password=${PASSWORD} --classpath=/liquibase/changelog --changelogFile=${CHANGELOGFILE} update"]
+          env:
+            - name: URL
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: db.url
+            - name: USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: db.user
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: db.password
+            - name: CHANGELOGFILE
+              value: changelog.sql
+          volumeMounts:
+            - name: config-vol
+              mountPath: /liquibase/changelog
+      restartPolicy: Never
+      volumes:
+        - name: config-vol
+          configMap:
+            name: liquibase-changelog

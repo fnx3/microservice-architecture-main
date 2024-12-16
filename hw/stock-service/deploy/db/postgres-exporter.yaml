@@ -1,0 +1,11 @@
+serviceMonitor:
+  enabled: true
+  namespace: stock
+config:
+  datasource:
+    host: postgresql
+    user: rocker
+    passwordSecret:
+      name: pg-secrets
+      key:  password
+    database: stock

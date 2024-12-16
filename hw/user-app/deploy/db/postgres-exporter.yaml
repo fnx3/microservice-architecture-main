@@ -1,0 +1,11 @@
+serviceMonitor:
+  enabled: true
+  namespace: user-profile
+config:
+  datasource:
+    host: postgresql
+    user: rocker
+    passwordSecret:
+      name: pg-secrets
+      key:  password
+    database: otus_user

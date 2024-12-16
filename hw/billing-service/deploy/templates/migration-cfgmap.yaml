@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: billing
+  name: liquibase-changelog
+data:
+  changelog.sql: |-
+    --liquibase formatted sql
+    
+    --changeset khmel:1
+    create table if not exists payment
+    (
+      id             uuid not null primary key,
+      amount         numeric(19, 2),
+      order_id       varchar(255),
+      payment_method varchar(255),
+      status         varchar(255),
+      user_id        varchar(255)
+    );
+    
+    create table if not exists wallet
+    (
+      id      uuid not null primary key,
+      amount  numeric(19, 2),
+      user_id varchar(255)
+    );
+        
+    --rollback 
+    -- drop table payment;
+    -- drop table wallet;
